@@ -19,6 +19,7 @@ foreach my $letra (@AtoZ){ # Para cada letra...
 	
 	while (<$in>){
 		if ($_ =~ /\*( \*)?[a-zA-Zà-úÀ-Ú\-]*\*.*/){ # Testa se a linha tem o formato de interesse.
+
 			my @linha = split (//, $_);
 			my $count = 0;
 			
@@ -33,6 +34,7 @@ foreach my $letra (@AtoZ){ # Para cada letra...
 			# Obtém a palavra em caixa baixa e grava no arquivo.
 			my $palavra = lc (substr ($_, $inicio, $tamanho));
 			print $out "$palavra\n";
+
 		}
 	}
 
@@ -49,6 +51,7 @@ open ($in, "<", "Names.txt") or die "Can't open Names.txt: $!";
 
 while (<$in>){
 	if ($_ =~ /& \*[a-zA-Zà-úÀ-Ú\-]*.*/){ # Testa se a linha tem o formato de interesse.
+
 		my @linha = split (//, $_);
 		my $count = 0;
 		
@@ -64,8 +67,6 @@ while (<$in>){
 		my $palavra = lc (substr ($_, $inicio, $tamanho));
 		print $out "$palavra\n";
 		
-		#print $palavra; #DEBUG
-		#print "\n"; #DEBUG
 	}
 }
 
