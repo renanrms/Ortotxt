@@ -2,6 +2,7 @@
 **/*.o
 **/*.so
 **/*~
+perl/Utilities/Makefile.old
 
 dict/A.txt
 dict/B.txt
@@ -31,4 +32,3 @@ dict/Y.txt
 dict/Z.txt
 dict/Geo.txt
 dict/Names.txt
-

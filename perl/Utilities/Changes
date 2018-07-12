@@ -1,0 +1,6 @@
+Revision history for Perl extension Utilities.
+
+0.01  Sun Jul  8 14:57:24 2018
+	- original version; created by h2xs 1.23 with options
+		-O -n Utilities
+

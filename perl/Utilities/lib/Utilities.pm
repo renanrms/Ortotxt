@@ -1,8 +1,39 @@
-#!/usr/bin/perl
+package Utilities;
 
-# Este arquivo implementa as funções necessárias para cada tipo de processamento de texto realizado pelo perl.
-
+use 5.026001;
 use strict;
+use warnings;
+use Carp;
+
+require Exporter;
+
+our @ISA = qw(Exporter);
+
+# Items to export into callers namespace by default. Note: do not export
+# names by default without a very good reason. Use EXPORT_OK instead.
+# Do not simply export all your public functions/methods/constants.
+
+# This allows declaration	use Utilities ':all';
+# If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
+# will save memory.
+our %EXPORT_TAGS = ( 'all' => [ qw(
+	
+) ] );
+
+our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
+
+our @EXPORT = qw(
+	ParagrafoAtual
+	IniciarAnalise
+	CarregarDicionarios
+	SalvarDicionarios
+	ObterParagrafo
+	VerificarPalavras
+	TerminarAnalise
+);
+
+our $VERSION = '0.01';
+
 
 my $arquivoTexto;  # Stream do arquivo texto tratado.
 my $caminhoArquivo = "";
@@ -13,13 +44,18 @@ my @arrayNomes;
 my $numeroNomes = 0;
 
 
+# Retorna o paragrafo atual.
+sub ParagrafoAtual {
+	return $paragrafo;
+}
+
 # Carrega os dicionários na memória.
 sub CarregarDicionarios {
 	my @linha;
 	$numeroPalavras_ptbr = 0;
 	$numeroNomes = 0;
-	
-	open (my $dicionario_ptbr, "<", "../dict/dict_pt-br.txt") or die "Can't open file dict_pt-br.txt: $!";
+
+	open (my $dicionario_ptbr, "<", "/home/humano/Área de Trabalho/lingprog/programa/perl/Utilities/blib/lib/dict_pt-br.txt") or die "\nError:  Can't open file dict_pt-br.txt: $!";
 	while (<$dicionario_ptbr>) {
 		# Retira a o caracter '\n' na linha do arquivo e adiciona a palavra no vetor.
 		@linha = split (/\n/, $_);
@@ -28,7 +64,7 @@ sub CarregarDicionarios {
 	}
 	close ($dicionario_ptbr) or die "cant't close dict_pt-br.txt: $!";
 
-	open (my $dicionarioNomes, "<", "../dict/dict_nomes.txt") or die "Can't open file dict_nomes.txt: $!";
+	open (my $dicionarioNomes, "<", "/home/humano/Área de Trabalho/lingprog/programa/perl/Utilities/blib/lib/dict_nomes.txt") or die "Can't open file dict_nomes.txt: $!";
 	while (<$dicionarioNomes>) {
 		# Retira a o caracter '\n' na linha do arquivo e adiciona a palavra no vetor.
 		@linha = split (/\n/, $_);
@@ -44,7 +80,7 @@ sub SalvarDicionarios {
 	
 	# Ordena o array e grava no arquivo de palavras ptbr.
 	@array_ptbr = sort @array_ptbr;
-	open (my $dicionario_ptbr, ">", "../dict/dict_pt-br.txt") or die "Can't open file dict_pt-br.txt: $!";
+	open (my $dicionario_ptbr, ">", "dict_pt-br.txt") or die "Can't open file dict_pt-br.txt: $!";
 	foreach $linha (@array_ptbr) {
 		print $dicionario_ptbr "$linha\n";
 	}
@@ -52,7 +88,7 @@ sub SalvarDicionarios {
 	
 	# Ordena o array e grava no arquivo de nomes.
 	@arrayNomes = sort @arrayNomes;
-	open (my $dicionarioNomes, ">", "../dict/dict_nomes.txt") or die "Can't open file dict_nomes.txt: $!";
+	open (my $dicionarioNomes, ">", "dict_nomes.txt") or die "Can't open file dict_nomes.txt: $!";
 	foreach $linha (@arrayNomes) {
 		print $dicionarioNomes "$linha\n";
 	}
@@ -128,21 +164,65 @@ sub VerificarPalavras {
 	return $resultado;
 }
 
+# Preloaded methods go here.
+
+# Autoload methods go after =cut, and are processed by the autosplit program.
+
+1;
+__END__
+# Below is stub documentation for your module. You'd better edit it!
+
+=head1 NAME
+
+Utilities - Perl extension to provide usefull functions for Ortotxt.
+
+=head1 SYNOPSIS
+
+  use Utilities;
+  
+  IniciarAnalise();
+  CarregarDicionarios();
+  SalvarDicionarios();
+  ObterParagrafo();
+  VerificarPalavras();
+  TerminarAnalise();
+
+=head1 DESCRIPTION
+
+Stub documentation for Utilities, created by h2xs. It looks like the
+author of the extension was negligent enough to leave the stub
+unedited.
+
+Blah blah blah.
+
+=head2 EXPORT
+
+None by default.
 
 
-# --------------------- TESTES ---------------------
+
+=head1 SEE ALSO
+
+Mention other useful documentation such as the documentation of
+related modules or operating system documentation (such as man pages
+in UNIX), or any relevant external documentation such as RFCs or
+standards.
+
+If you have a mailing list set up for your module, mention it here.
+
+If you have a web site set up for your module, mention it here.
+
+=head1 AUTHOR
+
+Renan Passos, E<lt>renanpassos@poli.ufrj.br<gt>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2018 by Renan Passos
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself, either Perl version 5.26.1 or,
+at your option, any later version of Perl 5 you may have available.
 
 
-IniciarAnalise ("../testes/texto1.txt");
-
-CarregarDicionarios();
-SalvarDicionarios();
-
-while (!ObterParagrafo()) {
-	print "\n$paragrafo";
-	print VerificarPalavras();
-}
-print "\n";
-
-TerminarAnalise();
-
+=cut
