@@ -2,15 +2,14 @@
 **/*.o
 **/*.so
 **/*~
+**/*.old
 
-perl/Utilities/Makefile.old
 perl/Utilities/Makefile
 perl/Utilities/MYMETA.json
 perl/Utilities/MYMETA.yml
 perl/Utilities/Utilities.bs
 perl/Utilities/Utilities.xs
 perl/Utilities/Utilities.c
-perl/Utilities/Utilities.o
 perl/Utilities/pm_to_blib
 perl/Utilities/blib/
 

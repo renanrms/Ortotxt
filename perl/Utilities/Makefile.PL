@@ -40,3 +40,30 @@ else {
     copy ($fallback, $file) or die "Can't copy $fallback to $file: $!";
   }
 }
+
+
+# Modifica o arquivo do módulo para conter o diretório de instalação em uma variável;
+
+open (my $in, "<", "lib/Utilities.pm") or die "Can't open lib/Utilities.pm: $!";
+open (my $out, ">", "lib/Utilities.pm.new") or die "Can't open lib/Utilities.pm.new: $!";
+
+while (<$in>){
+	if ($_ =~ /my \$moduleDir = .*/){ # Testa se a linha contém a definição do diretório de instalação do módulo.
+
+		my @argumento = split (/=/, $ARGV[0]); # Separa o par nome-valor do argumento pelo sinal '='.
+		my $installBase = $argumento[1]; 
+		print $out "my \$moduleDir = \"${installBase}/lib/perl5/x86_64-linux-gnu-thread-multi\";\n";
+		
+	}
+	else {
+		
+		print $out $_;
+		
+	}
+}
+
+close ($out) or die "cant't close lib/Utilities.pm.new: $!";
+close ($in) or die "cant't close lib/Utilities.pm: $!";
+
+# Substitui o módulo pelo novo arquivo (Utilities.pm.new).
+`mv lib/Utilities.pm lib/Utilities.pm.old && mv lib/Utilities.pm.new lib/Utilities.pm`;

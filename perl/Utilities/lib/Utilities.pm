@@ -42,7 +42,7 @@ my @array_ptbr;
 my $numeroPalavras_ptbr = 0;
 my @arrayNomes;
 my $numeroNomes = 0;
-
+my $moduleDir = "/home/humano/ortotxt-perllib/lib/perl5/x86_64-linux-gnu-thread-multi";
 
 # Retorna o paragrafo atual.
 sub ParagrafoAtual {
@@ -55,7 +55,7 @@ sub CarregarDicionarios {
 	$numeroPalavras_ptbr = 0;
 	$numeroNomes = 0;
 
-	open (my $dicionario_ptbr, "<", "/home/humano/Área de Trabalho/lingprog/programa/perl/Utilities/blib/lib/dict_pt-br.txt") or die "\nError:  Can't open file dict_pt-br.txt: $!";
+	open (my $dicionario_ptbr, "<", "$moduleDir/dict_pt-br.txt") or die "\nError:  Can't open file dict_pt-br.txt: $!";
 	while (<$dicionario_ptbr>) {
 		# Retira a o caracter '\n' na linha do arquivo e adiciona a palavra no vetor.
 		@linha = split (/\n/, $_);
@@ -64,7 +64,7 @@ sub CarregarDicionarios {
 	}
 	close ($dicionario_ptbr) or die "cant't close dict_pt-br.txt: $!";
 
-	open (my $dicionarioNomes, "<", "/home/humano/Área de Trabalho/lingprog/programa/perl/Utilities/blib/lib/dict_nomes.txt") or die "Can't open file dict_nomes.txt: $!";
+	open (my $dicionarioNomes, "<", "$moduleDir/dict_nomes.txt") or die "Can't open file dict_nomes.txt: $!";
 	while (<$dicionarioNomes>) {
 		# Retira a o caracter '\n' na linha do arquivo e adiciona a palavra no vetor.
 		@linha = split (/\n/, $_);
@@ -80,7 +80,7 @@ sub SalvarDicionarios {
 	
 	# Ordena o array e grava no arquivo de palavras ptbr.
 	@array_ptbr = sort @array_ptbr;
-	open (my $dicionario_ptbr, ">", "dict_pt-br.txt") or die "Can't open file dict_pt-br.txt: $!";
+	open (my $dicionario_ptbr, ">", "$moduleDir/dict_pt-br.txt") or die "Can't open file dict_pt-br.txt: $!";
 	foreach $linha (@array_ptbr) {
 		print $dicionario_ptbr "$linha\n";
 	}
@@ -88,7 +88,7 @@ sub SalvarDicionarios {
 	
 	# Ordena o array e grava no arquivo de nomes.
 	@arrayNomes = sort @arrayNomes;
-	open (my $dicionarioNomes, ">", "dict_nomes.txt") or die "Can't open file dict_nomes.txt: $!";
+	open (my $dicionarioNomes, ">", "$moduleDir/dict_nomes.txt") or die "Can't open file dict_nomes.txt: $!";
 	foreach $linha (@arrayNomes) {
 		print $dicionarioNomes "$linha\n";
 	}
