@@ -144,6 +144,31 @@ sub IsAWord {
 	return 0;
 }
 
+# Verifica se a palavra passada como argumento está no dicionário de nomes utilizando busca binária.
+# Retorna 1, se sim e 0, se não.
+sub IsAName {
+	my $palavra = $_[0];
+
+	my $inicio = 0;
+	my $fim = $numeroNomes;
+	my $meio = int (($inicio + $fim)/2);
+
+	while ($fim - $inicio > 0) {
+		if ((lc $palavra) eq $arrayNomes[$meio]) {
+			return 1;
+		}
+		elsif ((lc $palavra) lt $arrayNomes[$meio]) {
+			$fim = $meio;
+		}
+		elsif ((lc $palavra) gt $arrayNomes[$meio]) {
+			$inicio = $meio + 1;
+		}
+		$meio = int (($inicio + $fim)/2);
+	}
+
+	return 0;
+}
+
 # Verifica se as palavras do paragrafo estão no dicionário.
 # Retorna uma string com a descrição dos erros cometidos no parágrafo.
 sub VerificarPalavras {
