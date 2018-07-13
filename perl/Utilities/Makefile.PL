@@ -66,4 +66,4 @@ close ($out) or die "cant't close lib/Utilities.pm.new: $!";
 close ($in) or die "cant't close lib/Utilities.pm: $!";
 
 # Substitui o módulo pelo novo arquivo (Utilities.pm.new).
-`mv lib/Utilities.pm lib/Utilities.pm.old && mv lib/Utilities.pm.new lib/Utilities.pm`;
+`mv lib/Utilities.pm fallback/Utilities.pm && mv lib/Utilities.pm.new lib/Utilities.pm`;
