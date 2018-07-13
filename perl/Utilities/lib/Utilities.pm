@@ -44,6 +44,10 @@ my @arrayNomes;
 my $numeroNomes = 0;
 my $moduleDir = "/home/humano/ortotxt-perllib/lib/perl5/x86_64-linux-gnu-thread-multi";
 
+
+# Corrige as permissões atribuidas aos arquivos na instalação.
+`chmod 744 $moduleDir/dict_nomes.txt $moduleDir/dict_pt-br.txt`;
+
 # Retorna o paragrafo atual.
 sub ParagrafoAtual {
 	return $paragrafo;
@@ -175,16 +179,16 @@ sub VerificarPalavras {
 	my $resultado = "";
 	
 	# Separa a linha em palavras determinadas pelos espaços e pontuações.
-	my @vetorParagrafo = split (/[\s\.\?,;:"']+-\*\//, $paragrafo);
+	my @vetorParagrafo = split (/[\s\.\?,;:"']+/, $paragrafo);
 	
 	# Verifica as palavras e gera a string com o resultado da análise.
 	foreach my $palavra (@vetorParagrafo) {
 		if ($palavra ne "") {
 			
-			my $palavraSplit = split (//, $palavra);
+			my @palavraSplit = split (//, $palavra);
 			
 			# Verifica se a palavra começa com letra minúscula.
-			if ($palavraSplit eq (lc $palavraSplit)){
+			if ($palavraSplit[0] eq (lc $palavraSplit[0])){
 				if (!IsAWord($palavra)) {
 					$resultado = "${resultado}\t> \"$palavra\" não está no dicionário PT-BR.\n";
 				}
