@@ -175,14 +175,26 @@ sub VerificarPalavras {
 	my $resultado = "";
 	
 	# Separa a linha em palavras determinadas pelos espaços e pontuações.
-	my @vetorParagrafo = split (/[\s\.\?,;:"']+/, $paragrafo);
+	my @vetorParagrafo = split (/[\s\.\?,;:"']+-\*\//, $paragrafo);
 	
 	# Verifica as palavras e gera a string com o resultado da análise.
 	foreach my $palavra (@vetorParagrafo) {
 		if ($palavra ne "") {
-			if (!IsAWord($palavra)) {
-				$resultado = "${resultado}\t> \"$palavra\" não está presente no dicionário.\n";
+			
+			my $palavraSplit = split (//, $palavra);
+			
+			# Verifica se a palavra começa com letra minúscula.
+			if ($palavraSplit eq (lc $palavraSplit)){
+				if (!IsAWord($palavra)) {
+					$resultado = "${resultado}\t> \"$palavra\" não está no dicionário PT-BR.\n";
+				}
 			}
+			else {
+				if (!IsAName($palavra)) {
+					$resultado = "${resultado}\t> \"$palavra\" não está no dicionário de nomes.\n";
+				}
+			}
+			
 		}
 	}
 
