@@ -11,6 +11,9 @@ perl/Utilities/Utilities.bs
 perl/Utilities/Utilities.xs
 perl/Utilities/Utilities.c
 perl/Utilities/pm_to_blib
+perl/Utilities/fallback/const-c.inc
+perl/Utilities/fallback/const-xs.inc
+perl/Utilities/fallback/Utilities.pm
 perl/Utilities/blib/
 
 dict/A.txt
